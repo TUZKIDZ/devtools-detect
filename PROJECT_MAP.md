@@ -1,6 +1,47 @@
 # PROJECT_MAP.md
-# Travel Platform — Architecture Document
-# Généré le : 2026-05-13 | Stack vérifiée sur npm registry
+# Rayan Travel Services LTD — Architecture Document
+# Généré le : 2026-05-13 | Stack vérifiée sur npm registry | PLAN FINAL VALIDÉ
+
+---
+
+## [BRAND]
+
+**Nom**       : Rayan Travel Services LTD
+**Nom court** : Rayan Travel (navbar, mobile)
+
+### Design Tokens
+
+```css
+/* Brand Gradient */
+--brand-pink:      #E5007A;
+--brand-purple:    #9333EA;
+--brand-blue:      #4B9CE4;
+--brand-gradient:  linear-gradient(135deg, #E5007A 0%, #9333EA 50%, #4B9CE4 100%);
+
+/* Neutrals */
+--bg-white:        #FFFFFF;
+--bg-light:        #F8F9FF;
+--text-dark:       #1A1A2E;
+--text-muted:      #6B7280;
+--border:          #E5E7EB;
+
+/* UI States */
+--success:         #10B981;
+--warning:         #F59E0B;
+--error:           #EF4444;
+```
+
+### Application des tokens
+
+| Élément               | Valeur                                         |
+|-----------------------|------------------------------------------------|
+| Boutons primaires     | gradient `#E5007A → #9333EA → #4B9CE4`        |
+| Tabs search actifs    | underline `#E5007A`                            |
+| Prix & badges         | `#E5007A` bold                                 |
+| Hero overlay          | image + gradient opacity 40%                   |
+| Cards                 | white + border `#E5E7EB` + hover shadow rose   |
+| Footer                | `#1A1A2E` + gradient sur les liens             |
+| Navbar                | white sticky + logo SVG fourni                 |
 
 ---
 
@@ -29,6 +70,7 @@
 | Cache client | ioredis                  | latest         | Client Redis Node.js                    |
 | Auth         | next-auth                | 4.24.14        | Session, Google OAuth, credentials      |
 | Auth adapter | @auth/prisma-adapter     | 2.11.2         | NextAuth ↔ Prisma                       |
+| i18n         | next-intl                | latest         | EN + FR — switcher navbar               |
 
 ### APIs Externes
 
@@ -442,13 +484,17 @@ export const logger = {
 ## [MILESTONES]
 
 ### M1 — Foundation
-**Verifiable Goal** : `pnpm dev` démarre ✓ | Login Google redirige vers dashboard ✓ | DB connectée ✓
+**Verifiable Goal** : `pnpm dev` démarre ✓ | Login Google redirige vers dashboard ✓ | DB connectée ✓ | Switcher EN/FR fonctionnel ✓
 
 - [ ] Init monorepo Turborepo + pnpm workspaces
 - [ ] `packages/db` : Prisma schema + migrations + seed (20 hôtels, 10 vols, 10 tours, 10 voitures)
 - [ ] `apps/web` : Next.js 16 + Tailwind 4 + shadcn/ui init
+- [ ] Design tokens Rayan Travel dans `tailwind.config.ts`
+- [ ] Logo SVG intégré (Rayan Travel Services LTD)
+- [ ] next-intl : routing EN/FR + fichiers `messages/en.json` + `messages/fr.json`
 - [ ] NextAuth : Google OAuth + email/password
-- [ ] Header / Footer / middleware auth
+- [ ] Header (logo + nav + switcher langue EN|FR + login) / Footer
+- [ ] Middleware : auth guard + locale redirect
 - [ ] Pages : `/auth/login`, `/auth/register`
 - [ ] Docker Compose local (postgres + redis)
 - [ ] Variables d'environnement documentées (`.env.example`)
@@ -514,7 +560,7 @@ export const logger = {
 
 | Item                        | Statut        | Priorité | Note                                     |
 |-----------------------------|---------------|----------|------------------------------------------|
-| i18n (AR/FR/EN)             | Non scopé     | Post-M6  | next-intl quand validé                   |
+| i18n Arabe (AR)             | Non scopé     | Post-M6  | RTL layout + next-intl 3ème locale        |
 | Emails transactionnels      | Non scopé     | Post-M3  | Resend — confirmation booking, reset pwd |
 | Notifications push mobile   | Non scopé     | Post-M6  | Expo Notifications + FCM                 |
 | Rate limiting API routes    | Non scopé     | M5+      | Upstash Ratelimit ou middleware custom    |
@@ -574,3 +620,5 @@ NODE_ENV="production"
 | 7 | pnpm workspaces                   | Plus rapide que npm, meilleur support monorepo que yarn           |
 | 8 | Docker sans PM2                   | Restart policies Docker suffisantes, PM2 = complexité inutile    |
 | 9 | metadata JSON dans Listing        | Flexibilité par type sans migration à chaque nouvelle propriété  |
+| 10| next-intl EN + FR dès M1          | Routing localisé `/en/*` `/fr/*` — coût faible, dette évitée     |
+| 11| Tokens Tailwind brand Rayan       | `brand-pink`, `brand-blue`, `brand-gradient` — cohérence totale  |

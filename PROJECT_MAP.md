@@ -560,6 +560,7 @@ export const logger = {
 
 | Item                        | Statut        | Priorité | Note                                     |
 |-----------------------------|---------------|----------|------------------------------------------|
+| **Portail B2B (Phase 2)**   | Non scopé     | Post-M5  | Organisations, agents, markup, crédit, facturation |
 | i18n Arabe (AR)             | Non scopé     | Post-M6  | RTL layout + next-intl 3ème locale        |
 | Emails transactionnels      | Non scopé     | Post-M3  | Resend — confirmation booking, reset pwd |
 | Notifications push mobile   | Non scopé     | Post-M6  | Expo Notifications + FCM                 |

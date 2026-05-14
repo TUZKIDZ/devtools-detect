@@ -4,8 +4,8 @@ import { resolve } from 'path'
 
 function loadEnv() {
   const candidates = [
-    resolve(__dirname, '.env'),
-    resolve(__dirname, '../../apps/web/.env.local'),
+    resolve(process.cwd(), '.env'),
+    resolve(process.cwd(), '../../apps/web/.env.local'),
   ]
   for (const p of candidates) {
     if (!existsSync(p)) continue
@@ -24,6 +24,9 @@ loadEnv()
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',
+  datasource: {
+    url: process.env.DATABASE_URL as string,
+  },
   migrate: {
     async adapter() {
       const url = process.env.DATABASE_URL
